@@ -1,4 +1,5 @@
 import {Router} from 'express';
+
 import CreateUserService from '../services/CreateUserService';
 
 const usersRouter = Router();
@@ -10,11 +11,13 @@ usersRouter.post('/', async (request,response) => {
 
     const createUser= new CreateUserService();
 
-    const user= await createUser.execute({
+    const user = await createUser.execute({
       name,
       email,
       password,
     });
+
+    delete user.password;
 
     return response.json(user);
 
