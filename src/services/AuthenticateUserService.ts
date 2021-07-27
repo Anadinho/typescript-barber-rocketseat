@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import User from '../models/User';
-import {compare} from 'bcryptjs'
+import { compare } from 'bcryptjs'
+import { sign, verify } from 'jsonwebtoken'
 
 interface Request {
   email:string;
@@ -9,6 +10,7 @@ interface Request {
 
 interface Response{
   user: User;
+  token:string;
 }
 
 
@@ -31,9 +33,15 @@ interface Response{
     }
 
     // chegou ate aqui, informações corretas e usuario autenticado!
+    //criando token
+    const token = sign({}, 'da9d160e4d9f5ff9adc78159a7884ff7', {
+      subject: user.id,
+      expiresIn:'1d',
+    })
 
     return{
       user,
+      token,
     };
 
   }
