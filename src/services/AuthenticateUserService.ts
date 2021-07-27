@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import User from '../models/User';
 import { compare } from 'bcryptjs'
 import { sign, verify } from 'jsonwebtoken'
+import authConfig from '../config/auth'
 
 interface Request {
   email:string;
@@ -34,10 +35,12 @@ interface Response{
 
     // chegou ate aqui, informações corretas e usuario autenticado!
     //criando token
-    const token = sign({}, 'da9d160e4d9f5ff9adc78159a7884ff7', {
+    const { secret, expiresIn} = authConfig.jwt;
+
+    const token = sign({}, secret, {
       subject: user.id,
-      expiresIn:'1d',
-    })
+      expiresIn,
+    });
 
     return{
       user,
