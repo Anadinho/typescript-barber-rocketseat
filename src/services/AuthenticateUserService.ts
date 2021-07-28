@@ -33,7 +33,7 @@ interface Response{
       throw new Error('Incorrect email/password combination');
     }
 
-    // chegou ate aqui, informações corretas e usuario autenticado!
+
     //criando token
     const { secret, expiresIn} = authConfig.jwt;
 

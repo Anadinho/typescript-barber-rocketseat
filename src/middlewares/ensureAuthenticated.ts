@@ -17,7 +17,7 @@ export default function ensureAuthenticated(request: Request, response: Response
   }
 
   //Bearer sauadasd...
-  const [type, token] = authHeader.split(' ');
+  const [ type, token ] = authHeader.split(' ');
 
 
   try{
